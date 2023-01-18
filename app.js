@@ -4,7 +4,7 @@ const songsController = require("./controllers/songController");
 
 app.use(express.json());
 app.get("/", (req, res) => {
-  res.send("Welcome to turner app");
+  res.send("Welcome to Tuner");
 });
 
 app.use("/songs", songsController);
