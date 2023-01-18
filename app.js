@@ -1,7 +1,6 @@
 const express = require("express");
 const app = express();
 const songsController = require("./controllers/songController");
-const { getAllSongs } = require("./queries/songs");
 
 app.use(express.json());
 app.get("/", (req, res) => {
