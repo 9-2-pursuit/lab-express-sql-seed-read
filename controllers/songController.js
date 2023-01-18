@@ -1,5 +1,7 @@
 const express = require("express");
 const songs = express.Router();
+const { checkName, checkBoolean } = require("../validations/checkSongs");
+const orderSongsBy = require("../utils/orderSongsBy");
 const {
   getAllSongs,
   getOneSong,
@@ -7,11 +9,12 @@ const {
   deleteSong,
   updateSong,
 } = require("../queries/songs");
-const { checkName, checkBoolean } = require("../validations/checkSongs");
 
 songs.get("/", async (req, res) => {
-  const allSongs = await getAllSongs();
-  res.json(allSongs);
+  let allSongs = await getAllSongs();
+  const { order, is_favorite } = req.query;
+  const sortedAllSongs = orderSongsBy(allSongs, order, is_favorite);
+  res.json(sortedAllSongs);
 });
 
 songs.get("/:id", async (req, res) => {
