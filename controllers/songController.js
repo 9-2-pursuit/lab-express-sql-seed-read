@@ -26,7 +26,7 @@ songs.get("/:id", checkSongId, async (req, res) => {
   //POST
   songs.post("/", checkName, checkBool, checkArtistName, async (req, res) => {
     
-    const newSong = await createSong();
+    const newSong = await createSong(req.body);
     if(newSong) {
       res.status(200).json(newSong);
     }else {
