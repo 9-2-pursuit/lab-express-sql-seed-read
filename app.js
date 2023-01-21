@@ -11,7 +11,7 @@ app.use(express.json()); // tells app to send and receive json
 
 // ROUTES
 app.get("/", (req, res) => {
-  res.send("Welcome to Song Playlist App");
+  res.send("Welcome to Tuner");
 });
 
 // Song ROUTES
