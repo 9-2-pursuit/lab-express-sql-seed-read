@@ -8,6 +8,11 @@ CREATE DATABASE tuner_db;
     name TEXT NOT NULL
  );
 
+ CREATE TABLE albums( 
+   id SERIAL PRIMARY KEY,
+   name TEXT NOT NULL
+ );
+
 CREATE TABLE songs(
     id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
@@ -15,7 +20,8 @@ CREATE TABLE songs(
     album TEXT,
     time TEXT,
     is_favorite BOOLEAN,
-    artist_id INTEGER REFERENCES artists(id)
+    artist_id INTEGER REFERENCES artists(id),
+    album_id INTEGER REFERENCES albums(id)
  );
 
 
