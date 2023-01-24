@@ -36,7 +36,8 @@ const checkBool = (req, res, next) => {
 
 const checkArtistName = (req, res, next) => {
   //if there is a artist in the user's req body after the post request is made. we will continue (next())
-  if (req.body.artist) {
+  const {artist} = req.body;
+  if (artist) {
     console.log("ARTIST is ok");
     //next will validate the request and continue proceedings of the request.
     next();

@@ -46,11 +46,7 @@ songs.get("/:id", checkSongId, async (req, res) => {
 //POST
 songs.post(
   "/",
-  checkName,
-  checkBool,
-  checkArtistName,
-  checkAlbum,
-  checkSongTime,
+  checkName, checkArtistName,
   async (req, res) => {
     try {
       const newSong = await createSong(req.body);
@@ -69,16 +65,23 @@ songs.post(
 songs.put("/:id", async (req, res) => {
   const { id } = req.params;
   const update = await updateSong(id, req.body);
-  res.status(200).json(update);
+  if(update.id) {
+    res.status(200).json(update);
+  }else {
+    res.status(404).json({ error: "error updating song" });
+
+  }
+  
 });
 
 songs.delete("/:id", async (req, res) => {
   const { id } = req.params;
-  const remove = await deleteSong(id);
-  if (remove.id) {
-    res.status(200).json(deleteSong);
+
+  const deletedSong = await deleteSong(id);
+  if (deletedSong.id) {
+    res.status(200).json(deletedSong);
   } else {
-    res.status(404).json({ error: "error deleting the song" });
+    res.status(404).json({ error: "Review not found" });
   }
 });
 
