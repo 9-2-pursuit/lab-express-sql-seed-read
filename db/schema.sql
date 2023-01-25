@@ -1,3 +1,15 @@
+
+-- CREATE TABLE songs(
+--     id SERIAL PRIMARY KEY,
+--     name TEXT NOT NULL,
+--     artist TEXT NOT NULL,
+--     album TEXT,
+--     time TEXT,
+--     is_favorite BOOLEAN,
+--     artist_id INTEGER REFERENCES artists(id),
+--     album_id INTEGER REFERENCES albums(id)
+--  );
+
 DROP DATABASE IF EXISTS tuner_db;
 CREATE DATABASE tuner_db;
 
@@ -13,16 +25,6 @@ CREATE DATABASE tuner_db;
    name TEXT NOT NULL
  );
 
--- CREATE TABLE songs(
---     id SERIAL PRIMARY KEY,
---     name TEXT NOT NULL,
---     artist TEXT NOT NULL,
---     album TEXT,
---     time TEXT,
---     is_favorite BOOLEAN,
---     artist_id INTEGER REFERENCES artists(id),
---     album_id INTEGER REFERENCES albums(id)
---  );
 
  CREATE TABLE songs(
     id SERIAL PRIMARY KEY,

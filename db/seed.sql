@@ -1,6 +1,3 @@
-
-\c tuner_db;
-
 -- INSERT INTO songs(name,artist,album,time,is_favorite)
 -- VALUES
 --  ('This Love', 'Taylor Swift','This love','4:10',true) ,
@@ -25,6 +22,8 @@
 --     ('Books about UFOs', 'Hüsker Dü', 'New Day Rising', '2:49', true,3 ,4),
 --     ('Mr. Startup', 'Wolf Parade', 'Thin Mind', '3:31', true,4,5 ),
 --     ('We Got the World', 'Icona Pop', 'This is...', '3:17', false ,5,6);
+
+\c tuner_db;
 
 INSERT INTO artists (name) 
 VALUES ('Eminem'),('Adele'),('Taylor Swift');

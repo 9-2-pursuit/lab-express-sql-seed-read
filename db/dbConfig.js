@@ -7,6 +7,6 @@ const cn = {
   user: process.env.PG_USER,
 };
 
-const db = pgp(cn);
-
+const db = pgp({ connectionString: process.env.POSTGRES_URL });
+console.log(db);
 module.exports = db;
