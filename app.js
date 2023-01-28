@@ -33,11 +33,7 @@ app.get("/deezer", async (req, res) => {
   }
   // console.log("deezerData", deezerData);
 
-  // title ,preview
-  // artist.name
-  // album.title  , album.cover_medium
-  //
-  result = result.filter((song) => song.album === "Midnights");
+  // result = result.filter((song) => song.album === "Midnights");
   // res.json(deezerData);
   res.json(result);
 });

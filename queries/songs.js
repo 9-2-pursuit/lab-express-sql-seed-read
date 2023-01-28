@@ -20,9 +20,42 @@ async function getOneSong(id) {
 
 async function createSong(song) {
   try {
+    let albumId = await db.oneOrNone(
+      "SELECT id FROM albums WHERE LOWER(name) = LOWER($1)",
+      song.album
+    );
+    if (!albumId) {
+      albumId = await db.one(
+        "INSERT INTO albums(name) VALUES($1) RETURNING id",
+        song.album
+      );
+      console.log("inside if", albumId);
+    }
+
+    let artistId = await db.oneOrNone(
+      "SELECT id FROM artists WHERE LOWER(name) = LOWER($1)",
+      song.artist
+    );
+    if (!artistId) {
+      artistId = await db.one(
+        "INSERT INTO artists(name) VALUES($1) RETURNING id",
+        song.artist
+      );
+    }
+    console.log("albumId", albumId);
+    console.log("artistId", artistId);
+
     const newSong = await db.one(
-      "INSERT INTO songs (name, artist, album, time, is_favorite)  VALUES($1,$2,$3,$4,$5) RETURNING *",
-      [song.name, song.artist, song.album, song.time, song.is_favorite]
+      "INSERT INTO songs (name, artist, album, time, is_favorite, artist_id,album_id)  VALUES($1,$2,$3,$4,$5,$6,$7) RETURNING *",
+      [
+        song.name,
+        song.artist,
+        song.album,
+        song.time,
+        song.is_favorite,
+        artistId.id,
+        albumId.id,
+      ]
     );
     return newSong;
   } catch (error) {
