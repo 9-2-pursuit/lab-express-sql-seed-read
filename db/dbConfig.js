@@ -8,5 +8,4 @@ const cn = {
 };
 
 const db = pgp({ connectionString: process.env.POSTGRES_URL });
-console.log(db);
 module.exports = db;

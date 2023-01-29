@@ -18,32 +18,49 @@ async function getOneSong(id) {
   }
 }
 
-async function createSong(song) {
+async function getAlbumId(album) {
   try {
     let albumId = await db.oneOrNone(
       "SELECT id FROM albums WHERE LOWER(name) = LOWER($1)",
-      song.album
+      album
     );
     if (!albumId) {
       albumId = await db.one(
         "INSERT INTO albums(name) VALUES($1) RETURNING id",
-        song.album
+        album
       );
-      console.log("inside if", albumId);
     }
+    console.log("album id", albumId);
+    return albumId.id;
+  } catch (error) {
+    console.log(error);
+  }
+}
 
+async function getArtistId(artist) {
+  try {
     let artistId = await db.oneOrNone(
       "SELECT id FROM artists WHERE LOWER(name) = LOWER($1)",
-      song.artist
+      artist
     );
     if (!artistId) {
       artistId = await db.one(
         "INSERT INTO artists(name) VALUES($1) RETURNING id",
-        song.artist
+        artist
       );
     }
-    console.log("albumId", albumId);
-    console.log("artistId", artistId);
+    console.log("art id", artistId);
+
+    return artistId.id;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function createSong(song) {
+  try {
+    const artistId = await getArtistId(song.artist);
+    const albumId = await getAlbumId(song.album);
 
     const newSong = await db.one(
       "INSERT INTO songs (name, artist, album, time, is_favorite, artist_id,album_id)  VALUES($1,$2,$3,$4,$5,$6,$7) RETURNING *",
@@ -53,10 +70,11 @@ async function createSong(song) {
         song.album,
         song.time,
         song.is_favorite,
-        artistId.id,
-        albumId.id,
+        artistId,
+        albumId,
       ]
     );
+    console.log("new songs", newSong);
     return newSong;
   } catch (error) {
     console.log(error);
@@ -80,9 +98,12 @@ async function deleteSong(id) {
 async function updateSong(id, song) {
   const { name, artist, album, time, is_favorite } = song;
   try {
+    const artistId = await getArtistId(song.artist);
+    const albumId = await getAlbumId(song.album);
+
     const updatedSong = await db.one(
-      "UPDATE songs SET name=$1, artist=$2, album=$3, time=$4, is_favorite=$5 WHERE id=$6 RETURNING *",
-      [name, artist, album, time, is_favorite, id]
+      "UPDATE songs SET name=$1, artist=$2, album=$3, time=$4, is_favorite=$5, artist_id = $6, album_id =$7 WHERE id=$8 RETURNING *",
+      [name, artist, album, time, is_favorite, artistId, albumId, id]
     );
     return updatedSong;
   } catch (error) {
