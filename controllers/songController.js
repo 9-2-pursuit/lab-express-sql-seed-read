@@ -30,7 +30,7 @@ songs.get("/:id", async (req, res) => {
   if (song) {
     res.status(200).json(song);
   } else {
-    res.status(404).json({ error: "Page not found" });
+    res.status(404).json({ error: "Song not found" });
   }
 });
 
