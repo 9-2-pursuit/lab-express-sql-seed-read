@@ -1,4 +1,5 @@
 const checkName = (req, res, next) => {
+  // console.log("Checking name");
   if (req.body.name) {
     next();
   } else {
@@ -7,6 +8,7 @@ const checkName = (req, res, next) => {
 };
 
 const checkArtist = (req, res, next) => {
+  // console.log("Checking artist");
   if (req.body.artist) {
     next();
   } else {
@@ -15,10 +17,13 @@ const checkArtist = (req, res, next) => {
 };
 
 const checkBoolean = (req, res, next) => {
+  // console.log("Checking boolean");
   const is_favorite = req.body.is_favorite;
   if (
     is_favorite == "true" ||
     is_favorite == "false" ||
+    is_favorite == true ||
+    is_favorite == false ||
     is_favorite == undefined
   ) {
     next();

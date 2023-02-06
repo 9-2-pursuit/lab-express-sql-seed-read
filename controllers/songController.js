@@ -36,6 +36,7 @@ songs.get("/:id", async (req, res) => {
 
 // CREATE
 songs.post("/", checkName, checkArtist, checkBoolean, async (req, res) => {
+  console.log("In post route");
   try {
     const song = await createSong(req.body);
     res.json(song);
@@ -57,6 +58,7 @@ songs.delete("/:id", async (req, res) => {
 
 // UPDATE
 songs.put("/:id", checkName, checkArtist, checkBoolean, async (req, res) => {
+  console.log("In put route");
   const { id } = req.params;
   const updatedSong = await updateSong(id, req.body);
   if (updatedSong.id) {
