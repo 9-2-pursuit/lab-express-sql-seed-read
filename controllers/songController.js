@@ -16,6 +16,10 @@ const {
   checkSongTime,
 } = require("../validate/checkSongs.js");
 
+//songs/artist/:artist_id
+
+songs.get
+
 //INDEX
 songs.get("/", async (req, res) => {
   const allSongs = await getAllSongs();
@@ -33,7 +37,8 @@ songs.get("/:id", checkSongId, async (req, res) => {
   if (song) {
     res.status(200).json(song);
   } else {
-    res.status(404).json({ error: "an arror occured" });
+    res.status(404).json({ error: `a song of ${id} does not exist` });
+    //.send(`a song of ${id} does not exist`);
   }
   // try {
   //   const song = await getOneSong(id);
@@ -84,5 +89,7 @@ songs.delete("/:id", async (req, res) => {
     res.status(404).json({ error: "Review not found" });
   }
 });
+
+
 
 module.exports = songs;

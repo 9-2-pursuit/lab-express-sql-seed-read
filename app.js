@@ -13,8 +13,13 @@ app.get("/", (req, res) => {
     res.send("Welcome to Tuner")
 });
 
+// app.get("*", function (req, res){
+//   res.send('what???', 404);
+// });
+
 app.get("*", (req, res) => {
-    res.status(404).send("Page Not Found");
-  });
+  res.redirect("/")
+})
+
 
 module.exports = app;
