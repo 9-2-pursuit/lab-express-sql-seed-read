@@ -1,38 +1,17 @@
 const express = require("express");
 
+const artists = express.Router({ mergeParams: true }); //access other params from other controllers in the app , combining routes
 
-const artist = express.Router({ mergeParams: true }); //access other params from other controllers in the app , combining routes
+const { getAllArtists } = require("../queries/artist");
 
-const {
-    getArtist,
-    one
-     
-} = require("../queries/artist")
+artists.get("/", async (req, res) => {
+  const { id } = req.params;
+  const all_artists = await getAllArtists(id);
+  if (all_artists[0]) {
+    res.status(200).json(all_artists);
+  } else {
+    res.status(500).json({ error: "whoops sserver error" });
+  }
+});
 
-
-artist.get("/", async (req, res) => {
-    const { id } = req.params; //boomark/:bookmarkID/reviews
-    //bookmarkId is the parameter name for the bookmarkId recieved from the database
-    const x = await one(id);
-    if (x[0]) {
-      res.status(200).json(x);
-    } else {
-      res.status(500).json({ error: "server error" });
-    }
-  });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-module.exports = artist;
+module.exports = artists;

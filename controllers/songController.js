@@ -2,7 +2,10 @@ const express = require("express");
 const songs = express.Router();
 
 const artistController = require("./artistController")
-songs.use("artist", artistController);
+songs.use("/:id/artist", artistController);
+//songs/song_id/artist
+
+
 const {
   getAllSongs,
   getOneSong,
@@ -11,6 +14,7 @@ const {
   deleteSong,
   sortByName,
 } = require("../queries/songs");
+
 const {
   checkSongId,
   checkName,
@@ -21,7 +25,6 @@ const {
   checkSongTime,
 } = require("../validate/checkSongs.js");
 
-//songs/artist/:artist_id
 
 songs.get
 

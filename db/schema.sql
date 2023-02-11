@@ -22,7 +22,6 @@ CREATE TABLE artist (
     bio TEXT NOT NULL,
     is_following BOOLEAN,
     songs_id
---     songs_id INTEGER REFERENCES songs (id)
---  ON DELETE CASCADE
+
 
 )
