@@ -1,3 +1,4 @@
+//app.js!
 const express = require("express");
 const cors = require("cors");
 const songController = require("./controllers/songController.js")
@@ -16,6 +17,8 @@ app.get("/", (req, res) => {
 // app.get("*", function (req, res){
 //   res.send('what???', 404);
 // });
+
+
 
 app.get("*", (req, res) => {
   res.redirect("/")
