@@ -61,4 +61,15 @@ const deleteSong = async (id) => {
     return error;
   }
 };
-module.exports = { getAllSongs, getOneSong, createSong, deleteSong , updateSong};
+
+const sortByName = async () => {
+  try {
+    const sortedSongs = await db.any(
+    "SELECT id, name, artist, album, time, is_favorite FROM songs ORDER BY name ASC",
+    );
+    return sortedSongs;
+  } catch(error) {
+    return error
+  }
+}
+module.exports = { getAllSongs, getOneSong, createSong, deleteSong , updateSong, sortByName};

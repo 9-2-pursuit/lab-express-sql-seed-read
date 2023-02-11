@@ -11,4 +11,18 @@ CREATE TABLE songs (
  time TEXT,
  is_favorite BOOLEAN
 
+
 );
+
+DROP TABLE IF EXISTS artist;
+CREATE TABLE artist (
+
+    id SERIAL PRIMARY KEY,
+    artist TEXT NOT NULL,
+    bio TEXT NOT NULL,
+    is_following BOOLEAN,
+    songs_id
+--     songs_id INTEGER REFERENCES songs (id)
+--  ON DELETE CASCADE
+
+)
